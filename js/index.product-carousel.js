@@ -26,6 +26,31 @@ function renderSlide() {
         slideContainer.innerHTML += slides[thirdSlideIdx];
       }
   }
+  renderIndicators();
+}
+
+function renderIndicators() {
+    let indicatorsHtml = '';
+    for (let i = 0; i < slides.length; i++) {
+        if (i === currentIdx) {
+            indicatorsHtml += '<button class="indicator active">*</button>';
+        } else {
+            indicatorsHtml += '<button class="indicator">*</button>';
+        }
+    }
+    const indicatorsContainer = document.querySelector('.product-carousel__indicators');
+    indicatorsContainer.innerHTML = indicatorsHtml;
+    addIndicatorsEventListeners();
+}
+
+function addIndicatorsEventListeners() {
+    const indicators = document.querySelectorAll('.product-carousel .indicator');
+    indicators.forEach( (indicator, idx) => {
+        indicator.addEventListener('click', () => {
+            currentIdx = idx;
+            renderSlide();
+        });
+    });
 }
 
 function nextSlide() {
@@ -37,6 +62,7 @@ function prevSlide() {
     currentIdx = currentIdx - 1 < 0 ? slides.length - 1 : currentIdx - 1;
     renderSlide();
 }
+
 
 // setInterval(nextSlide, 3000);
 
